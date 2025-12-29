@@ -4,119 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solidus - Premium Roblox Clothing Designer</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for key styles */
         :root {
-            --primary-bg: #121212; /* Deep Charcoal */
-            --secondary-bg: #0A0A0A; /* Obsidian */
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #121212;
             --text-color: #ffffff;
-            --accent-color: #00d4ff; /* Cyber blue for accents */
-            --glass-bg: rgba(255, 255, 255, 0.05);
+            --accent-color: #00d4ff; 
+            --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.1);
-            --border-radius: 16px;
-            --spacing-xs: 0.25rem;
-            --spacing-sm: 0.5rem;
-            --spacing-md: 1rem;
-            --spacing-lg: 2rem;
-            --spacing-xl: 4rem;
-            --font-family: 'Inter', sans-serif;
-            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
-            --gradient-bg: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+            --font-main: 'Bebas Neue', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
-        /* Global Styles */
         body {
-            background: var(--gradient-bg);
+            background-color: var(--primary-bg);
             color: var(--text-color);
-            font-family: var(--font-family);
+            font-family: var(--font-body);
             margin: 0;
-            padding: 0;
-            overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Glassmorphism Effect */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-soft);
+        h1, h2, h3 {
+            font-family: var(--font-main);
+            letter-spacing: 2px;
+            /* Gradient removed - clean solid color now */
+            background: none !important;
+            -webkit-text-fill-color: initial !important;
+            color: var(--text-color);
         }
 
-        /* Navigation */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
             z-index: 1000;
-            padding: var(--spacing-md) var(--spacing-xl);
-            box-shadow: var(--shadow-soft);
+            padding: 1.5rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
         }
 
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav li {
-            margin: 0 var(--spacing-lg);
-        }
-
-        nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s ease;
-            padding: var(--spacing-sm) 0;
-        }
-
-        nav a:hover {
-            color: var(--accent-color);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background: var(--accent-color);
-            transition: width 0.3s ease, left 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-            left: 0;
-            transform: translateX(0);
-        }
-
-        /* Sections */
         section {
-            min-height: 100vh;
-            padding: var(--spacing-xl) var(--spacing-lg);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            padding: 100px 20px;
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
         }
 
         section.visible {
@@ -124,341 +73,96 @@
             transform: translateY(0);
         }
 
-        /* Buttons */
         .btn {
-            background: linear-gradient(135deg, var(--accent-color), rgba(0, 212, 255, 0.7));
-            color: var(--text-color);
-            padding: var(--spacing-md) var(--spacing-lg);
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: inline-block;
-            cursor: pointer;
-            border: none;
-            box-shadow: var(--shadow-soft);
+            background: var(--accent-color);
+            color: #000;
+            font-family: var(--font-main);
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 4px;
+            transition: 0.3s;
+            text-transform: uppercase;
         }
 
         .btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.4);
+            filter: brightness(1.2);
+            box-shadow: 0 0 15px var(--accent-color);
         }
 
-        /* Images */
-        img {
-            transition: transform 0.4s ease;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-soft);
-        }
-
-        img:hover {
-            transform: scale(1.03);
-        }
-
-        /* Cards */
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            padding: var(--spacing-lg);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            box-shadow: var(--shadow-soft);
-            text-align: center;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Progress Bars */
-        .progress-bar {
-            background: var(--secondary-bg);
-            border-radius: 10px;
-            height: 10px;
-            margin-top: var(--spacing-sm);
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, var(--accent-color), rgba(0, 212, 255, 0.5));
-            height: 100%;
-            border-radius: 10px;
-            transition: width 1.2s ease;
-        }
-
-        /* Form */
-        form {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            padding: var(--spacing-xl);
-            max-width: 600px;
-            width: 100%;
-            box-shadow: var(--shadow-soft);
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: var(--spacing-md);
-            margin-bottom: var(--spacing-md);
-            background: var(--secondary-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            color: var(--text-color);
-            font-family: var(--font-family);
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-
-        /* Magnetic Hover Effect */
-        .magnetic {
-            transition: transform 0.2s ease;
-        }
-
-        .magnetic:hover {
-            transform: translate(3px, -3px);
-        }
-
-        /* Hero Specific */
+        /* Hero Text Specifics */
         #home h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 700;
-            margin-bottom: var(--spacing-md);
-            background: linear-gradient(135deg, var(--accent-color), #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        #home p {
-            font-size: 1.25rem;
-            margin-bottom: var(--spacing-xl);
-            opacity: 0.9;
-        }
-
-        /* Grid Adjustments for Clean Layout */
-        .grid-clean {
-            display: grid;
-            gap: var(--spacing-lg);
-            align-items: start;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            nav li {
-                margin: var(--spacing-sm) 0;
-            }
-            section {
-                padding: var(--spacing-lg) var(--spacing-md);
-            }
+            font-size: 8rem;
+            line-height: 0.9;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="glass">
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#pricings">Pricings</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+
+    <nav>
+        <ul class="flex justify-center space-x-12 font-semibold uppercase tracking-widest text-sm">
+            <li><a href="#home" class="hover:text-cyan-400 transition">Home</a></li>
+            <li><a href="#work" class="hover:text-cyan-400 transition">Work</a></li>
+            <li><a href="#pricings" class="hover:text-cyan-400 transition">Pricings</a></li>
+            <li><a href="#contact" class="hover:text-cyan-400 transition">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Home Section -->
-    <section id="home" class="glass">
-        <div class="text-center max-w-5xl mx-auto">
-            <h1>SOLIDUS</h1>
-            <p>Premium Digital Attire</p>
-            <img src="hero-mockup.png" alt="Hero Mockup" class="w-full mb-8">
-            <a href="#work" class="btn magnetic">Explore Work</a>
+    <section id="home" class="flex flex-col items-center justify-center min-h-screen text-center">
+        <h1 class="mb-4">SOLIDUS</h1>
+        <p class="text-gray-400 uppercase tracking-widest mb-10">Premium Digital Attire & Design</p>
+        <a href="#work" class="btn">View Collection</a>
+    </section>
+
+    <section id="work" class="max-w-6xl mx-auto">
+        <h2 class="text-5xl mb-12 text-center">Recent Commissions</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass card p-4"><img src="https://via.placeholder.com/400x500" class="w-full h-auto"></div>
+            <div class="glass card p-4"><img src="https://via.placeholder.com/400x500" class="w-full h-auto"></div>
+            <div class="glass card p-4"><img src="https://via.placeholder.com/400x500" class="w-full h-auto"></div>
         </div>
     </section>
 
-    <!-- Work Section -->
-    <section id="work">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center">My Work</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="card relative overflow-hidden">
-                    <img src="work-sample.png" alt="Work Sample" class="w-full">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent flex flex-col items-center justify-end p-6 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                        <h3 class="text-xl font-bold mb-4">Project Title</h3>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
+    <section id="pricings" class="max-w-6xl mx-auto">
+        <h2 class="text-5xl mb-12 text-center">Pricing</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="glass card p-10">
+                <h3 class="text-3xl mb-4">Basic</h3>
+                <p class="text-4xl text-cyan-400 mb-6 font-bold">$15</p>
+                <ul class="text-gray-400 space-y-2">
+                    <li>1x High Res Shirt</li>
+                    <li>Basic Shading</li>
+                    <li>2-Day Turnaround</li>
+                </ul>
                 </div>
-                <!-- Repeat for 4 cards -->
-                <div class="card relative overflow-hidden">
-                    <img src="work-sample.png" alt="Work Sample" class="w-full">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent flex flex-col items-center justify-end p-6 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                        <h3 class="text-xl font-bold mb-4">Project Title</h3>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-                <div class="card relative overflow-hidden">
-                    <img src="work-sample.png" alt="Work Sample" class="w-full">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent flex flex-col items-center justify-end p-6 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                        <h3 class="text-xl font-bold mb-4">Project Title</h3>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-                <div class="card relative overflow-hidden">
-                    <img src="work-sample.png" alt="Work Sample" class="w-full">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent flex flex-col items-center justify-end p-6 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                        <h3 class="text-xl font-bold mb-4">Project Title</h3>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
+            <div class="glass card p-10 border-cyan-500">
+                <h3 class="text-3xl mb-4">Pro</h3>
+                <p class="text-4xl text-cyan-400 mb-6 font-bold">$45</p>
+                <ul class="text-gray-400 space-y-2">
+                    <li>Full Outfit Design</li>
+                    <li>Premium Textures</li>
+                    <li>Priority Queue</li>
+                </ul>
+            </div>
+            <div class="glass card p-10">
+                <h3 class="text-3xl mb-4">Studio</h3>
+                <p class="text-4xl text-cyan-400 mb-6 font-bold">$100</p>
+                <ul class="text-gray-400 space-y-2">
+                    <li>Full Brand Re-design</li>
+                    <li>Source Files Included</li>
+                    <li>Unlimited Revisions</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center">Services</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="card">
-                    <i class="fas fa-tshirt text-5xl mb-6" style="color: var(--accent-color);"></i>
-                    <h3 class="text-2xl font-bold mb-4">Custom Uniforms</h3>
-                    <p>Design bespoke uniforms tailored for your Roblox avatar.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-palette text-5xl mb-6" style="color: var(--accent-color);"></i>
-                    <h3 class="text-2xl font-bold mb-4">Brand Collections</h3>
-                    <p>Create cohesive collections that represent your brand.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-cogs text-5xl mb-6" style="color: var(--accent-color);"></i>
-                    <h3 class="text-2xl font-bold mb-4">Asset Management</h3>
-                    <p>Manage and optimize your digital assets efficiently.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricings Section -->
-    <section id="pricings">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center">Pricings</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="card">
-                    <h3 class="text-2xl font-bold mb-4">Basic</h3>
-                    <p class="text-4xl font-bold mb-6" style="color: var(--accent-color);">$50</p>
-                    <ul class="text-left space-y-2">
-                        <li>1 Custom Item</li>
-                        <li>Basic Texturing</li>
-                        <li>Standard Delivery</li>
-                    </ul>
-                    <a href="#" class="btn mt-6">Choose Plan</a>
-                </div>
-                <div class="card relative">
-                    <span class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-accent-color text-black px-4 py-2 rounded-full font-bold text-sm">Recommended</span>
-                    <h3 class="text-2xl font-bold mb-4">Standard</h3>
-                    <p class="text-4xl font-bold mb-6" style="color: var(--accent-color);">$150</p>
-                    <ul class="text-left space-y-2">
-                        <li>3 Custom Items</li>
-                        <li>Advanced Texturing & Shading</li>
-                        <li>Priority Delivery</li>
-                    </ul>
-                    <a href="#" class="btn mt-6">Choose Plan</a>
-                </div>
-                <div class="card">
-                    <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
-                    <p class="text-4xl font-bold mb-6" style="color: var(--accent-color);">$500</p>
-                    <ul class="text-left space-y-2">
-                        <li>Unlimited Items</li>
-                        <li>Full Branding Package</li>
-                        <li>24/7 Support</li>
-                    </ul>
-                    <a href="#" class="btn mt-6">Choose Plan</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center">About Me</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="text-center">
-                    <img src="profile-pic.png" alt="Profile Pic" class="w-64 h-64 rounded-full mx-auto shadow-lg">
-                </div>
-                <div>
-                    <p class="mb-8 text-lg">I am Solidus, a premium Roblox clothing designer specializing in high-end digital attire. With years of experience, I bring creativity and precision to every project.</p>
-                    <h3 class="text-2xl font-bold mb-6">Skills</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="mb-2">Texturing</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 95%;"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="mb-2">Shading</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 90%;"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="mb-2">Branding</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 85%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center">Contact Me</h2>
-            <form class="mx-auto">
-                <input type="text" placeholder="Name" required>
-                <input type="text" placeholder="Discord Username" required>
-                <textarea placeholder="Project Details" rows="5" required></textarea>
-                <button type="submit" class="btn w-full">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- JavaScript for Scroll Animations -->
     <script>
-        const sections = document.querySelectorAll('section');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, { threshold: 0.1 });
 
-        sections.forEach(section => observer.observe(section));
-
-        // Smooth scrolling for nav links
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
     </script>
+</body>
+</html>
