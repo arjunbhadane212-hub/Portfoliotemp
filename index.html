@@ -1,1 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solidus - Premium Roblox Clothing Designer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for key styles */
+        :root {
+            --primary-bg: #121212; /* Deep Charcoal */
+            --secondary-bg: #0A0A0A; /* Obsidian */
+            --text-color: #ffffff;
+            --accent-color: #00d4ff; /* Cyber blue for accents */
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --border-radius: 12px;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --font-family: 'Inter', sans-serif;
+        }
 
+        /* Global Styles */
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--secondary-bg);
+            z-index: 1000;
+            padding: var(--spacing-md);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin: 0 var(--spacing-lg);
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--accent-color), #007bff);
+            color: var(--text-color);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Images */
+        img {
+            transition: transform 0.3s;
+            border-radius: var(--border-radius);
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Progress Bars */
+        .progress-bar {
+            background: var(--secondary-bg);
+            border-radius: 10px;
+            height: 8px;
+            margin-top: var(--spacing-sm);
+        }
+
+        .progress-fill {
+            background: var(--accent-color);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s;
+        }
+
+        /* Form */
+        form {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            background: var(--secondary-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            color: var(--text-color);
+            font-family: var(--font-family);
+        }
+
+        /* Magnetic Hover Effect (Basic CSS approximation) */
+        .magnetic {
+            transition: transform 0.1s;
+        }
+
+        .magnetic:hover {
+            transform: translate(5px, -5px);
+        }
+
+        /* Fade-in on scroll */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#pricings">Pricings</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="text-center">
+            <h1 class="text-6xl font-bold mb-4" style="background: linear-gradient(135deg, var(--accent-color), #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SOLIDUS</h1>
+            <p class="text-xl mb-8">Premium Digital Attire</p>
+            <img src="hero-mockup.png" alt="Hero Mockup" class="w-full max-w-4xl mb-8">
+            <a href="#work" class="btn">Explore Work</a>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work">
+        <h2 class="text-4xl font-bold mb-8">My Work</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="card relative overflow-hidden">
+                <img src="work-sample.png" alt="Work Sample" class="w-full">
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                    <h3 class="text-xl font-bold">Project Title</h3>
+                    <a href="#" class="btn mt-4">View Details</a>
+                </div>
+            </div>
+            <!-- Repeat for 4 cards -->
+            <div class="card relative overflow-hidden">
+                <img src="work-sample.png" alt="Work Sample" class="w-full">
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                    <h3 class="text-xl font-bold">Project Title</h3>
+                    <a href="#" class="btn mt-4">View Details</a>
+                </div>
+            </div>
+            <div class="card relative overflow-hidden">
+                <img src="work-sample.png" alt="Work Sample" class="w-full">
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                    <h3 class="text-xl font-bold">Project Title</h3>
+                    <a href="#" class="btn mt-4">View Details</a>
+                </div>
+            </div>
+            <div class="card relative overflow-hidden">
+                <img src="work-sample.png" alt="Work Sample" class="w-full">
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                    <h3 class="text-xl font-bold">Project Title</h3>
+                    <a href="#" class="btn mt-4">View Details</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="text-4xl font-bold mb-8">Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="card text-center">
+                <i class="fas fa-tshirt text-4xl mb-4" style="color: var(--accent-color);"></i>
+                <h3 class="text-2xl font-bold mb-4">Custom Uniforms</h3>
+                <p>Design bespoke uniforms tailored for your Roblox avatar.</p>
+            </div>
+            <div class="card text-center">
+                <i class="fas fa-palette text-4xl mb-4" style="color: var(--accent-color);"></i>
+                <h3 class="text-2xl font-bold mb-4">Brand Collections</h3>
+                <p>Create cohesive collections that represent your brand.</p>
+            </div>
+            <div class="card text-center">
+                <i class="fas fa-cogs text-4xl mb-4" style="color: var(--accent-color);"></i>
+                <h3 class="text-2xl font-bold mb-4">Asset Management</h3>
+                <p>Manage and optimize your digital assets efficiently.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricings Section -->
+    <section id="pricings">
+        <h2 class="text-4xl font-bold mb-8">Pricings</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="card text-center">
+                <h3 class="text-2xl font-bold mb-4">Basic</h3>
+                <p class="text-3xl font-bold mb-4">$50</p>
+                <ul class="text-left">
+                    <li>1 Custom Item</li>
+                    <li>Basic Texturing</li>
+                    <li>Standard Delivery</li>
+                </ul>
+                <a href="#" class="btn mt-4">Choose Plan</a>
+            </div>
+            <div class="card text-center relative">
+                <span class="absolute top-0 right-0 bg-accent-color text-black px-2 py-1 rounded">Recommended</span>
+                <h3 class="text-2xl font-bold mb-4">Standard</h3>
+                <p class="text-3xl font-bold mb-4">$150</p>
+                <ul class="text-left">
+                    <li>3 Custom Items</li>
+                    <li>Advanced Texturing & Shading</li>
+                    <li>Priority Delivery</li>
+                </ul>
+                <a href="#" class="btn mt-4">Choose Plan</a>
+            </div>
+            <div class="card text-center">
+                <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
+                <p class="text-3xl font-bold mb-4">$500</p>
+                <ul class="text-left">
+                    <li>Unlimited Items</li>
+                    <li>Full Branding Package</li>
+                    <li>24/7 Support</li>
+                </ul>
+                <a href="#" class="btn mt-4">Choose Plan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="text-4xl font-bold mb-8">About Me</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="text-center">
+                <img src="profile-pic.png" alt="Profile Pic" class="w-48 h-48 rounded-full mx-auto">
+            </div>
+            <div>
+                <p class="mb-8">I am Solidus, a premium Roblox clothing designer specializing in high-end digital attire. With years of experience, I bring creativity and precision to every project.</p>
+                <h3 class="text-2xl font-bold mb-4">Skills</h3>
+                <div class="mb-4">
+                    <p>Texturing</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 95%;"></div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <p>Shading</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <p>Branding</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="text-4xl font-bold mb-8">Contact Me</h2>
+        <form>
+            <input type="text" placeholder="Name" required>
+            <input type="text" placeholder="Discord Username" required>
+            <textarea placeholder="Project Details" rows="5" required></textarea>
+            <button type="submit" class="btn w-full">Send Message</button>
+        </form>
+    </section>
+
+    <!-- JavaScript for Scroll Animations -->
+    <script>
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Smooth scrolling for nav links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
