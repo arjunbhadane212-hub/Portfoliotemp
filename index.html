@@ -8,17 +8,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        /* Main Hero Font */
         @font-face {
             font-family: 'BBH BARTLE';
             src: local('BBH BARTLE');
+        }
+
+        /* Subtitle/Header Font */
+        @font-face {
+            font-family: 'BBH HEGARTY';
+            src: local('BBH HEGARTY');
         }
 
         :root {
             --primary-bg: #000000;
             --text-color: #ffffff;
             --accent-color: #00d4ff; 
-            --glass-bg: rgba(20, 20, 20, 0.6); 
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(20, 20, 20, 0.65); 
+            --glass-border: rgba(255, 255, 255, 0.12);
         }
 
         body {
@@ -27,14 +34,23 @@
             font-family: 'Ubuntu', sans-serif;
             margin: 0;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Fixed BBH BARTLE scaling to prevent overlapping */
-        h1, h2, h3, .nav-link, .stat-number {
+        /* ONLY the main Hero Title */
+        .hero-title {
             font-family: 'BBH BARTLE', sans-serif !important;
             text-transform: uppercase;
-            line-height: 1.1; /* Added space between lines */
-            letter-spacing: 0.02em; /* Reduced spacing to prevent horizontal break */
+            line-height: 1;
+            letter-spacing: -0.02em; /* Tighter for the main logo look */
+        }
+
+        /* All other Subtitles and Headers */
+        h2, h3, .nav-link, .stat-number, .number-label {
+            font-family: 'BBH HEGARTY', sans-serif !important;
+            text-transform: uppercase;
+            line-height: 1.2;
+            letter-spacing: 1px;
             color: var(--text-color);
         }
 
@@ -42,28 +58,27 @@
             font-family: 'Ubuntu', sans-serif !important;
             text-transform: none;
             color: #a1a1a6;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .glass {
             background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(160%);
-            -webkit-backdrop-filter: blur(25px) saturate(160%);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
-            overflow: hidden; /* Keeps font inside the box */
         }
 
         nav {
             position: fixed;
-            top: 20px;
+            top: 25px;
             left: 50%;
             transform: translateX(-50%);
             width: fit-content;
-            padding: 0.6rem 2rem;
+            padding: 0.7rem 2.2rem;
             z-index: 1000;
             background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             border-radius: 100px;
         }
@@ -71,8 +86,8 @@
         section {
             padding: 120px 24px;
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         section.visible {
@@ -80,29 +95,21 @@
             transform: translateY(0);
         }
 
-        /* Hero text fix for wide fonts */
-        #home h1 {
-            font-size: clamp(3.5rem, 12vw, 8.5rem); 
-            margin-bottom: 0.5rem;
-        }
-
         .service-card {
             padding: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+            transition: all 0.3s ease;
         }
 
-        .stat-number {
-            display: block;
-            margin-top: 5px;
+        .service-card:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <ul class="flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em]">
+        <ul class="flex space-x-10 text-[11px] font-bold uppercase tracking-[0.15em]">
             <li><a href="#home" class="nav-link hover:text-cyan-400 transition">Home</a></li>
             <li><a href="#create" class="nav-link hover:text-cyan-400 transition">Services</a></li>
             <li><a href="#philosophy" class="nav-link hover:text-cyan-400 transition">About</a></li>
@@ -111,69 +118,69 @@
     </nav>
 
     <section id="home" class="flex flex-col items-center justify-center min-h-screen text-center">
-        <h1>SOLIDUS</h1>
-        <p class="uppercase tracking-[0.5em] text-[10px] text-white opacity-40">Premium Digital Attire & Design</p>
+        <h1 class="hero-title text-9xl md:text-[11rem] mb-4">SOLIDUS</h1>
+        <p class="uppercase tracking-[0.6em] text-[11px] text-white opacity-40">Premium Digital Attire & Design</p>
     </section>
 
     <section id="create" class="max-w-6xl mx-auto">
-        <h2 class="text-5xl md:text-6xl mb-14 ml-2">What We Create</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h2 class="text-5xl md:text-6xl mb-14">What We Create</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="glass service-card">
-                <span class="text-cyan-400 font-bold text-xs mb-3">01</span>
-                <h3 class="text-3xl mb-4">Game Development</h3>
+                <span class="number-label text-cyan-400 text-sm mb-3 block">01</span>
+                <h3 class="text-2xl mb-4">Game Development</h3>
                 <p>Building immersive Roblox games from concept to launch with stunning visuals and smooth gameplay.</p>
             </div>
             <div class="glass service-card">
-                <span class="text-cyan-400 font-bold text-xs mb-3">02</span>
-                <h3 class="text-3xl mb-4">3D Modeling</h3>
+                <span class="number-label text-cyan-400 text-sm mb-3 block">02</span>
+                <h3 class="text-2xl mb-4">3D Modeling</h3>
                 <p>Custom models, characters, and assets designed to bring your Roblox vision to life.</p>
             </div>
             <div class="glass service-card">
-                <span class="text-cyan-400 font-bold text-xs mb-3">03</span>
-                <h3 class="text-3xl mb-4">Scripting</h3>
+                <span class="number-label text-cyan-400 text-sm mb-3 block">03</span>
+                <h3 class="text-2xl mb-4">Scripting</h3>
                 <p>Clean, optimized Lua scripts for game mechanics, UI systems, and interactive experiences.</p>
             </div>
             <div class="glass service-card">
-                <span class="text-cyan-400 font-bold text-xs mb-3">04</span>
-                <h3 class="text-2xl md:text-3xl mb-4">Map Design</h3>
+                <span class="number-label text-cyan-400 text-sm mb-3 block">04</span>
+                <h3 class="text-2xl mb-4">Map Design</h3>
                 <p>Detailed environments and worlds that captivate players and enhance gameplay.</p>
             </div>
         </div>
     </section>
 
     <section id="philosophy" class="max-w-6xl mx-auto">
-        <div class="glass p-10 md:p-20 grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div class="glass p-12 md:p-20 grid grid-cols-1 md:grid-cols-2 gap-20">
             <div>
-                <span class="text-cyan-400 text-xs font-bold block mb-4">ABOUT</span>
-                <h2 class="text-6xl mb-8 leading-[0.9]">Our Philosophy</h2>
-                <p class="text-white text-lg mb-6 font-medium">At Solidus, we believe every Roblox project deserves exceptional quality.</p>
+                <span class="number-label text-cyan-400 text-xs block mb-6">ABOUT</span>
+                <h2 class="text-7xl mb-10 leading-[0.9]">Our Philosophy</h2>
+                <p class="text-white text-xl mb-6">At Solidus, we believe every Roblox project deserves exceptional quality.</p>
                 <p class="text-sm">Our team specializes in delivering premium Roblox commissions with attention to detail and a commitment to excellence.</p>
                 
-                <div class="flex space-x-12 mt-12">
+                <div class="flex space-x-16 mt-16">
                     <div>
-                        <span class="text-[10px] opacity-40 block mb-1">PROJECTS</span>
+                        <span class="number-label text-gray-500 text-[10px] block mb-2">PROJECTS</span>
                         <span class="stat-number text-5xl">100+</span>
                     </div>
                     <div>
-                        <span class="text-[10px] opacity-40 block mb-1">CLIENTS</span>
+                        <span class="number-label text-gray-500 text-[10px] block mb-2">CLIENTS</span>
                         <span class="stat-number text-5xl">HAPPY</span>
                     </div>
                 </div>
             </div>
 
-            <div class="flex flex-col justify-center space-y-10 border-l border-white/10 pl-10 md:pl-16">
-                <span class="text-cyan-400 text-xs font-bold block">APPROACH</span>
+            <div class="flex flex-col justify-center space-y-12 border-l border-white/10 pl-12 md:pl-20">
+                <span class="number-label text-cyan-400 text-xs block">APPROACH</span>
                 <div>
                     <h3 class="text-2xl mb-2">Quality First</h3>
-                    <p class="text-sm">Every asset and script is crafted to the highest standards.</p>
+                    <p>Every asset and script is crafted to the highest standards.</p>
                 </div>
                 <div>
                     <h3 class="text-2xl mb-2">Communication</h3>
-                    <p class="text-sm">Clear updates and collaboration throughout your project.</p>
+                    <p>Clear updates and collaboration throughout your project.</p>
                 </div>
                 <div>
                     <h3 class="text-2xl mb-2">Delivery</h3>
-                    <p class="text-sm">On-time completion with revisions until you're satisfied.</p>
+                    <p>On-time completion with revisions until you're satisfied.</p>
                 </div>
             </div>
         </div>
@@ -181,14 +188,14 @@
 
     <section id="contact" class="max-w-4xl mx-auto text-center">
         <h2 class="text-5xl mb-12">Contact</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="glass p-8 flex items-center justify-center gap-4 hover:bg-white/5 transition cursor-pointer">
-                <i class="fab fa-discord text-cyan-400 text-xl"></i>
-                <span class="stat-number text-lg">test123</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="glass p-8 flex items-center justify-center gap-5 hover:bg-white/5 transition">
+                <i class="fab fa-discord text-cyan-400 text-2xl"></i>
+                <span class="stat-number text-xl">test123</span>
             </div>
-            <div class="glass p-8 flex items-center justify-center gap-4 hover:bg-white/5 transition cursor-pointer">
-                <i class="fas fa-envelope text-cyan-400 text-xl"></i>
-                <span class="text-white text-sm font-medium">1234@gmail.com</span>
+            <div class="glass p-8 flex items-center justify-center gap-5 hover:bg-white/5 transition">
+                <i class="fas fa-envelope text-cyan-400 text-2xl"></i>
+                <span class="desc-text text-xl text-white font-medium">1234@gmail.com</span>
             </div>
         </div>
     </section>
